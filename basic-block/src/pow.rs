@@ -1,5 +1,6 @@
 use crate::block::Block;
 use sha2::{Digest, Sha256};
+use num_bigint::BigUint;
 
 // Since PoW does not modify the internal state of the block, we can use a reference to the block with lifetime 'a.
 // The target is the number that the hash of the block must be less than. The target_bits is the number of leading zeros in the hash.
@@ -23,7 +24,7 @@ impl<'a> ProofOfWork<'a> {
     }
 
     // method for preparing the data to be hashed.
-    fn prepare_data(&self, target_bits: u16, nonce: u64) -> Vec<u8> {
+    fn prepare_data(&self, target_bits: u16, nonce: u32) -> Vec<u8> {
         let mut data = vec![];
         data.extend_from_slice(self.block.prev_block_hash());
         data.extend_from_slice(self.block.data());
@@ -35,7 +36,7 @@ impl<'a> ProofOfWork<'a> {
 
     // method for running the PoW algorithm through increasing nonce value by 1.
     // in order to check whether the hash value meets the target.
-    pub fn run(&self) -> (u64, Vec<u8>) {
+    pub fn run(&self) -> (u32, Vec<u8>) {
         let mut hash = vec![0; 32];
         let mut nonce = 0u32;
 
