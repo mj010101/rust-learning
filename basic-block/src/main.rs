@@ -15,6 +15,9 @@ fn main() {
         println!("Prev. hash: {:?}", hex::encode(&block.prev_block_hash()));
         println!("Data: {}", String::from_utf8(block.data().to_vec()).unwrap());
         println!("Hash: {:?}", hex::encode(&block.hash()));
+
+        let pow = pow::ProofOfWork::new(&block, 24);
+        println!("PoW: {}", pow.validate());
         println!();
     }
 }
