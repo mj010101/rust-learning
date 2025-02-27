@@ -21,7 +21,7 @@ impl Block {
             nonce: 0,
         };
 
-        let pow = ProofOfWork::new(&block, 24);
+        let pow = ProofOfWork::new(&block, 8);
         let (nonce, hash) = pow.run();
 
         block.hash = hash;
