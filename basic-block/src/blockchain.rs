@@ -7,7 +7,7 @@ pub struct Blockchain {
 }
 
 // simple implementation without 1) searching hash and 2) storing block. 
-// Only feature = saving a block.
+// Only feature = storing a block.
 impl Blockchain {
     pub fn new() -> Blockchain {
         let mut blocks = Vec::new();
