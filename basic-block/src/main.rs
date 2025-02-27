@@ -3,6 +3,7 @@ pub mod blockchain;
 
 use hex;
 
+// Test script to see a simple block producing step.
 fn main() {
     let mut bc = blockchain::Blockchain::new();
 
