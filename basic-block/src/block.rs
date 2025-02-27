@@ -1,7 +1,8 @@
 use chrono::prelude::*;
 use crate::pow::ProofOfWork;
+use serde::{Serialize, Deserialize};
 
-#[derive(Debug, Clone)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct Block {
     pub timestamp: i64, // info about block generation time
     pub data: Vec<u8>, // info about block Tx data
@@ -49,13 +50,19 @@ impl Block {
     pub fn timestamp(&self) -> i64 {
         self.timestamp
     }
-    pub fn nonce(&self) -> u32 {
-        self.nonce
-    }
     pub fn prev_block_hash(&self) -> &[u8] {
         &self.prev_block_hash
     }
     pub fn data(&self) -> &[u8] {
         &self.data
+    }
+    pub fn nonce(&self) -> u32 {
+        self.nonce
+    }
+    pub fn serialize(&self) -> Vec<u8> {
+        serde_json::to_vec(&self).expect("Failed to serialize data")
+    }
+    pub fn deserialize(data: &[u8]) -> Block {
+        serde_json::from_slice(data).expect("Failed to deserialize data")
     }
 }
